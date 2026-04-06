@@ -1,6 +1,10 @@
 package config
 
-import "fwd/internal/constants"
+import (
+	"fwd/internal/constants"
+
+	"github.com/go-playground/validator/v10"
+)
 
 type ServerConfig struct {
 	Port   string        `validate:"required,numeric"`
@@ -12,10 +16,16 @@ type Config struct {
 }
 
 func LoadConfig() (*Config, error) {
-	return &Config{
+	cfg := &Config{
 		Server: &ServerConfig{
 			Port:   "8080",
 			RunEnv: constants.Dev,
 		},
-	}, nil
+	}
+
+	if err := validator.New().Struct(cfg); err != nil {
+		return nil, err
+	}
+
+	return cfg, nil
 }
