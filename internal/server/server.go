@@ -3,6 +3,8 @@ package server
 import (
 	"fmt"
 	"fwd/internal/config"
+	"fwd/internal/handler"
+	"fwd/internal/router"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,9 +15,12 @@ type Server struct {
 }
 
 func NewServer(cfg *config.ServerConfig) *Server {
+	handler := handler.NewHandler()
+	router := router.NewRouter(handler)
+
 	return &Server{
 		config: cfg,
-		router: gin.Default(),
+		router: router,
 	}
 }
 
