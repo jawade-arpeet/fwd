@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"fwd/internal/client"
 	"fwd/internal/config"
 	"fwd/internal/handler"
 	"fwd/internal/router"
@@ -15,7 +16,7 @@ type Server struct {
 	router *gin.Engine
 }
 
-func NewServer(cfg *config.ServerConfig) *Server {
+func NewServer(cfg *config.ServerConfig, client *client.Client) *Server {
 	handler := handler.NewHandler()
 	router := router.NewRouter(handler)
 

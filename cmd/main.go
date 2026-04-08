@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fwd/internal/client"
 	"fwd/internal/config"
 	"fwd/internal/logger"
 	"fwd/internal/server"
@@ -21,7 +22,12 @@ func main() {
 			zap.Error(err))
 	}
 
-	if err := server.NewServer(cfg.Server).Start(); err != nil {
+	client, err := client.CreateClient(cfg.Postgres)
+	if err != nil {
+		zap.L().Fatal("failed to create client", zap.String("operation", "Client.CreateClient"), zap.String("impact", "stoping the server"), zap.Error(err))
+	}
+
+	if err := server.NewServer(cfg.Server, client).Start(); err != nil {
 		zap.L().Fatal(
 			"failed to start the server",
 			zap.String("operation", "server.Start"),
