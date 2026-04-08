@@ -2,5 +2,12 @@
   "server": {
     "run_env": "dev",
     "port": 8080
+  },
+  "postgres": {
+    "username": "engineer",
+    "password": "password",
+    "host": "localhost",
+    "port": 5432,
+    "database": "fwd_db"
   }
 }

@@ -13,8 +13,17 @@ type ServerConfig struct {
 	RunEnv constants.Env `validate:"required,oneof=dev stg prod" mapstructure:"run_env"`
 }
 
+type PostgresConfig struct {
+	Username string `validate:"required" mapstructure:"username"`
+	Password string `validate:"required" mapstructure:"password"`
+	Host     string `validate:"required" mapstructure:"host"`
+	Port     string `validate:"required,numeric" mapstructure:"port"`
+	Database string `validate:"required" mapstructure:"database"`
+}
+
 type Config struct {
-	Server *ServerConfig `validate:"required" mapstructure:"server"`
+	Server   *ServerConfig   `validate:"required" mapstructure:"server"`
+	Postgres *PostgresConfig `validate:"required" mapstructure:"postgres"`
 }
 
 func LoadConfig() (*Config, error) {
