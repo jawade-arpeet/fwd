@@ -1,0 +1,6 @@
+{
+  "server": {
+    "run_env": "dev",
+    "port": 8080
+  }
+}
