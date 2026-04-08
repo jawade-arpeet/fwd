@@ -2,17 +2,31 @@ package main
 
 import (
 	"fwd/internal/config"
+	"fwd/internal/logger"
 	"fwd/internal/server"
-	"log"
+
+	"go.uber.org/zap"
 )
 
 func main() {
+	logger := logger.NewLogger()
+	zap.ReplaceGlobals(logger)
+
 	cfg, err := config.LoadConfig()
 	if err != nil {
-		log.Fatalf("failed to load config %v", err)
+		zap.L().Fatal(
+			"failed to load config file",
+			zap.String("operation", "config.LoadConfig"),
+			zap.String("impact", "stoping the server"),
+			zap.Error(err))
 	}
 
 	if err := server.NewServer(cfg.Server).Start(); err != nil {
-		log.Fatalf("failed to start the server %v", err)
+		zap.L().Fatal(
+			"failed to start the server",
+			zap.String("operation", "server.Start"),
+			zap.String("impact", "stoping the server"),
+			zap.Error(err),
+		)
 	}
 }

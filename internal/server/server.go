@@ -7,6 +7,7 @@ import (
 	"fwd/internal/router"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type Server struct {
@@ -25,6 +26,7 @@ func NewServer(cfg *config.ServerConfig) *Server {
 }
 
 func (s *Server) Start() error {
+	zap.L().Info("starting server", zap.String("port", s.config.Port))
 	addr := fmt.Sprintf(":%s", s.config.Port)
 	return s.router.Run(addr)
 }
