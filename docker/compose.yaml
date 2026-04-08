@@ -1,0 +1,17 @@
+name: "fwd"
+
+services:
+  postgres:
+    container_name: "fwd-postgres"
+    image: "postgres:17"
+    environment:
+      POSTGRES_USER: "engineer"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DATABASE: "fwd_db"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
