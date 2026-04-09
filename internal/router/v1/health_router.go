@@ -9,6 +9,6 @@ import (
 func MountHealthRoutes(router *gin.RouterGroup, handler *handler.HealthHandler) {
 	health := router.Group("/health")
 	{
-		health.GET("/", handler.Check)
+		health.GET("", handler.Check)
 	}
 }
