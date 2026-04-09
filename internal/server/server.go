@@ -5,7 +5,9 @@ import (
 	"fwd/internal/client"
 	"fwd/internal/config"
 	"fwd/internal/handler"
+	"fwd/internal/repo"
 	"fwd/internal/router"
+	"fwd/internal/service"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -17,7 +19,9 @@ type Server struct {
 }
 
 func NewServer(cfg *config.ServerConfig, client *client.Client) *Server {
-	handler := handler.NewHandler()
+	repo := repo.NewRepo(client)
+	service := service.NewService(repo)
+	handler := handler.NewHandler(service)
 	router := router.NewRouter(handler)
 
 	return &Server{
