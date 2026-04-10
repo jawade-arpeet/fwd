@@ -22,7 +22,7 @@ func NewServer(cfg *config.ServerConfig, client *client.Client) *Server {
 	repo := repo.NewRepo(client)
 	service := service.NewService(repo)
 	handler := handler.NewHandler(service)
-	router := router.NewRouter(handler)
+	router := router.NewRouter(cfg.RunEnv, handler)
 
 	return &Server{
 		config: cfg,
