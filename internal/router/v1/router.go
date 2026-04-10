@@ -11,4 +11,5 @@ func MountV1Routes(router *gin.Engine, handler *handler.Handler) {
 
 	MountHealthRoutes(v1, handler.Health)
 	MountAccountRoutes(v1, handler.Account)
+	MountPlatformRoutes(v1, handler.Platform)
 }

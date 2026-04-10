@@ -3,13 +3,15 @@ package handler
 import "fwd/internal/service"
 
 type Handler struct {
-	Health  *HealthHandler
-	Account *AccountHandler
+	Health   *HealthHandler
+	Account  *AccountHandler
+	Platform *PlatformHandler
 }
 
 func NewHandler(service *service.Service) *Handler {
 	return &Handler{
-		Health:  NewHealthHandler(),
-		Account: NewAccountHandler(service.Account),
+		Health:   NewHealthHandler(),
+		Account:  NewAccountHandler(service.Account),
+		Platform: NewPlatformHandler(service.Platform),
 	}
 }
